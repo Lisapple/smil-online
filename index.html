@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+  <head>
+    <title>SMIL - Structured and Methodic and Innovative Language</title>
+  	<link rel="stylesheet" type="text/css" href="index.css"/>
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+  <body onLoad="onLoad()">
+    <header>
+      <span class="logo">SMIL - Structured and Methodic and Innovative Language</span>
+      <a href="http://github.com/Lisapple/PySMIL" style="float:right;color:white">Github</a>
+    </header>
+    
+    <content>
+      <h3>Playground</h3>
+      <div class="playground">
+        <input type="text" placeholder="Arguments" id="arguments"></input>
+        <select name="choice" id="examples" onchange="loadProgram()">
+          <option>---Examples---</option>
+        </select>
+        <span id="warning" style="margin-left:8px;color:orange;display:none"></span>
+        <textarea id="program"></textarea>
+        <!--<span style="margin-left:8px;color:red">Error</span>-->
+        <br>
+        <button onclick="submit();">Submit</button>
+        <input id="verbose-on" onclick="submit();" type="checkbox">Verbose mode</input>
+        <input id="golf-on" onclick="submit();" type="checkbox">Golf mode</input>
+        <!--<span class="description">Description of this code</span>-->
+        <hr>
+        <div id="smileys"></div>
+       	<div id="output"></div>
+       </div>
+      
+      <h3>Help</h3>
+      <div style="padding:0px 8px;">
+        
+        <p>Every program starts with <code>&lt;3</code> (heart) and ends with <code>&lt;/3</code> (broken heart), like HTML markup:</p>
+        
+        <p><code>&lt;3</code></p>
+        
+        <p><code>;) body here</code></p>
+        
+        <p><code>&lt;/3</code></p>
+        
+        <p>Smileys are only <strong>two characters</strong> long (except for the broken heart <code>&lt;/3</code> to end a program) for performance purposes.</p>
+        
+        <p>White-spaces (<code>_</code>), tabs (<code>\t</code>) and line breaks (<code>\n</code>) can separate smileys and are ignored, even into variable name; are they are called <strong>skipable</strong> characters.</p>
+        
+        <p>Example: <code>:( \n :$ \t :)</code> is the same as <code>:(:$:)</code></p>
+        
+        <h4>Extension:</h4>
+        
+        <p>The file extension is <code>.sl</code>, like <code>myawesomeprog.sl</code>.</p>
+        
+        <h4>Comment:</h4>
+        
+        <ul>
+          <li><code>;) this is a comment</code>, until the end of the line</li>
+        </ul>
+        
+        
+        <h4>Get input value:</h4>
+        
+        <ul>
+          <li><p>first input: <code>:$</code></p></li>
+          <li><p>second input: <code>:$:$</code></p></li>
+          <li><p>third input: <code>:$:$:$</code></p></li>
+          <li><p>etc.</p></li>
+        </ul>
+        
+        
+        <p>Note: theses values cannot be assigned (changed) and there is <strong>no skipable</strong>
+        characters between each <code>:$</code> (Example: <code>:$ :$</code> is like <code>:$</code> <code>:$</code>, two times the first input <code>:$</code>, but not the same as <code>:$:$</code>)</p>
+        
+        <h4>Variable:</h4>
+        
+        <ul>
+          <li><p>declaration: <code>:( [variable name] :)</code></p></li>
+          <li><p>inverse (not) the value: <code>x( [variable name] :)</code></p></li>
+          <li><p>(anonymous variable: <code>:( :)</code>)</p></li>
+          <li><p>Generated variable (create a variable with the name of the value contained into the variable <code>":P"</code>): <code>:( :( :P :) :)</code></p></li>
+        </ul>
+        
+        
+        <p>Example: If first input is "12",</p>
+        
+        <p><code>:( :$ :) =; :$</code> creates a variable
+        named <code>":$"</code> with the value of "12",</p>
+        
+        <p><code>:( :( :$ :) :) ;= :$ :* :$</code> create a variable named "12" with the value of "144".</p>
+        
+        <p>Example: If first input is "123":</p>
+        
+        <p><code>:( :P :) =; :$</code></p>
+        
+        <p><code>x( :O :) =; x( :P :)</code>, <code>":O"</code> equals "true", <code>":P"</code> equals 123</p>
+        
+        <h4>Initialization:</h4>
+        
+        <ul>
+          <li><code>=;</code></li>
+        </ul>
+        
+        
+        <h4>Nop (do nothing, absolutely nothing, not even eating cherries):</h4>
+        
+        <ul>
+          <li><code>:v</code></li>
+        </ul>
+        
+        
+        <h4>Print:</h4>
+        
+        <ul>
+          <li>print <code>:@ [content to print] @)</code></li>
+        </ul>
+        
+        
+        <p>Example: print the first argument (<code>:$</code>): <code>:@ :( :$ :) :$:$ :$ @)</code>: "4 = 2" if inputs are: ["2", "="], and the variable <code>":$"</code> is equal to 4.</p>
+        
+        <ul>
+          <li>print <code>"Hello, :$!"</code> (or <code>"Hello, world!"</code> if no inputs): <code>:B</code></li>
+        </ul>
+        
+        
+        <h4>Example (with first input is "Hello" and second "1"):</h4>
+        
+        <p><code>&lt;3</code></p>
+        
+        <p><code>:( :$ :) =; :$:$ ;) ":$" = 2nd input</code></p>
+        
+        <p><code>:( :P :) =; x( :$ :) ;) ":P" = not ( ":$" )</code></p>
+        
+        <p><code>:@ :$ :( :P :) @) ;) print "Hello, 0!"</code></p>
+        
+        <p><code>&lt;/3</code></p>
+        
+        <p>Without spaces and comments:</p>
+        
+        <p><code>&lt;3:(:$:)=;:$:$</code></p>
+        
+        <p><code>:(:P:)=;:x(:$:)</code></p>
+        
+        <p><code>:@:$:(:P:)@)&lt;/3</code></p>
+        
+        <h4>Operators (binary):</h4>
+        
+        <p>With integers:</p>
+        
+        <ul>
+          <li><p>Add: <code>:#</code></p></li>
+          <li><p>Subtract: <code>:&gt;</code></p></li>
+          <li><p>Multiply: <code>:*</code></p></li>
+          <li><p>Divide: <code>:/</code></p></li>
+          <li><p>Modulo: <code>%)</code></p></li>
+          <li><p>And: <code>:&amp;</code></p></li>
+          <li><p>Or: <code>:|</code></p></li>
+        </ul>
+        
+        
+        <p>Note: <code>:&amp;</code> and <code>:|</code> are binary <em>and</em> and <em>or</em>, the result will be binary number, <em>zero</em> or <em>one</em>.</p>
+        
+        <p>Example (set a variable named <code>":P"</code> with the addition of the first and second arguments):</p>
+        
+        <p><code>:( :P :) =; :$ :# :$:$</code></p>
+        
+        <p>With string:</p>
+        
+        <ul>
+          <li><p>Concatenation (and integer or string): <code>:#</code></p></li>
+          <li><p>Subtract (and integer or string): <code>:&gt;</code></p></li>
+          <li><p>Append <em>n</em> times: <code>:*</code></p></li>
+          <li><p>Divide <em>n</em> times: <code>:/</code></p></li>
+          <li><p>Offset by <em>n</em> characters to the right: <code>%)</code></p></li>
+        </ul>
+        
+        
+        <p>Example: If inputs are: "Hello" ", " "World" "!":</p>
+        
+        <p><code>:$ :# :$:$ :# :$:$:$ :# :$:$:$:$</code> ("Hello, World!")</p>
+        
+        <p>Example 2: If inputs are: "Hello" and "el":</p>
+        
+        <p><code>:$ :&gt; :$:$</code> ("Hlo")</p>
+        
+        <p>Example 3: If inputs are "Hello" and 2:</p>
+        
+        <p><code>:$:$ :# :$</code> ("Hello2")</p>
+        
+        <p><code>:$:$ :&gt; :$</code> ("Hel")</p>
+        
+        <p><code>:$:$ :* :$</code> ("HelloHello")</p>
+        
+        <p><code>:$:$ :/ :$</code> ("He")</p>
+        
+        <p><code>:$:$ %) :$</code> ("loHel")</p>
+        
+        <h4>Stack:</h4>
+        
+        <ul>
+          <li><p>Push the first input: <code>:P :$</code></p></li>
+          <li><p>Push the content of the variable <code>":#"</code>: <code>:P :( :# :)</code></p></li>
+          <li><p>Pop to the variable <code>":P"</code>: <code>:O :( :P :)</code></p></li>
+          <li><p>Clear the stack: <code>:D</code></p></li>
+        </ul>
+        
+        
+        <h4>Build-in functions:</h4>
+        
+        <ul>
+          <li>Length : <code>L) [input | variable]</code></li>
+        </ul>
+        
+        
+        <p>Example: the variable <code>":$"</code> contains the length of the first input:</p>
+        
+        <p><code>:( :$ :) =; L) :$</code></p>
+        
+        <ul>
+          <li>loop: <code>8| [condition] |) [then block] 8) [thelse block] 8}</code></li>
+        </ul>
+        
+        
+        <p>The then block is called until the condition is true (superior to zero, compared as <code>[integer | length(string)] &gt; 0</code>). The <em>thelse</em> (then else) block is called once if the condition is false before the loop (and not if becomming false during the execution of the then block) and then exits the loop.</p>
+        
+        <p>Example 1: loop and push the variable named <code>":$"</code> until <code>:$</code> is true and then push the content of the variable named <code>":$:$"</code>:</p>
+        
+        <p><code>8| :$ |) :P :( :$ :) 8) :P :( :$:$ :) 8}</code></p>
+        
+        <p>Note: the <em>thelse</em> block is not called in this example</p>
+        
+        <p>Example 2: push the maximum between the first and the second input:</p>
+        
+        <p><code>:( :P :) =; :$:$ :&gt; :$</code></p>
+        
+        <p><code>8| :( :P :) |) :P :( :$:$ :) :( :P :) ;= :$ :&gt; :$ 8) :P :( :$ :) 8}</code></p>
+        
+        <ul>
+          <li>Exit the program (with a zero status code, i.e. success): <code>#0</code></li>
+        </ul>
+        
+        
+        <h4>Smileys descriptions:</h4>
+        
+        <table>
+          <tbody>
+            <tr>
+              <td> <code>L)</code> </td>
+              <td> loser </td>
+            </tr>
+            <tr>
+              <td> <code>#0</code> </td>
+              <td> d'oh </td>
+            </tr>
+            <tr>
+              <td> <code>%)</code> </td>
+              <td> drunk </td>
+            </tr>
+            <tr>
+              <td> <code>8}</code> </td>
+              <td> silly </td>
+            </tr>
+            <tr>
+              <td> <code>8|</code> </td>
+              <td> rolling eyes </td>
+            </tr>
+            <tr>
+              <td> <code>:$</code> </td>
+              <td> don't tell anyone </td>
+            </tr>
+            <tr>
+              <td> <code>:&gt;</code> </td>
+              <td> smug </td>
+            </tr>
+            <tr>
+              <td> <code>:v</code> </td>
+              <td> pacman </td>
+            </tr>
+            <tr>
+              <td> <code>8)</code> </td>
+              <td> dumb person </td>
+            </tr>
+            <tr>
+              <td> <code>:P</code> </td>
+              <td> drooling </td>
+            </tr>
+            <tr>
+              <td> <code>=;</code> </td>
+              <td> talk to my hand </td>
+            </tr>
+            <tr>
+              <td> <code>:O</code> </td>
+              <td> clown </td>
+            </tr>
+            <tr>
+              <td> <code>:/</code> </td>
+              <td> confused </td>
+            </tr>
+            <tr>
+              <td> <code>:&amp;</code> </td>
+              <td> sick </td>
+            </tr>
+            <tr>
+              <td> <code>:#</code> </td>
+              <td> Sealed lips </td>
+            </tr>
+            <tr>
+              <td> <code>x(</code> </td>
+              <td> angry </td>
+            </tr>
+            <tr>
+              <td> <code>B)</code> </td>
+              <td> cool </td>
+            </tr>
+            <tr>
+              <td> <code>|)</code> </td>
+              <td> sleepy </td>
+            </tr>
+            <tr>
+              <td> <code>&lt;3</code> </td>
+              <td> heart </td>
+            </tr>
+            <tr>
+              <td> <code>&lt;/3</code> </td>
+              <td> broken heart </td>
+            </tr>
+            <tr>
+              <td> <code>:(</code> </td>
+              <td> sad </td>
+            </tr>
+            <tr>
+              <td> <code>:)</code> </td>
+              <td> happy </td>
+            </tr>
+            <tr>
+              <td> <code>;)</code> </td>
+              <td> wink </td>
+            </tr>
+            <tr>
+              <td> <code>:D</code> </td>
+              <td> smile </td>
+            </tr>
+            <tr>
+              <td> <code>:$</code> </td>
+              <td> embarrassed </td>
+            </tr>
+            <tr>
+              <td> <code>:*</code> </td>
+              <td> kiss </td>
+            </tr>
+            <tr>
+              <td> <code>@)</code> </td>
+              <td> hypnotized </td>
+            </tr>
+            <tr>
+              <td> <code>:@</code> </td>
+              <td> exclamation </td>
+            </tr>
+            <tr>
+              <td> <code>:</code>&#124; </td>
+              <td> disappointed </td>
+            </tr>
+            <tr>
+              <td> <code>:B</code> </td>
+              <td> geek </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </content>
+    
+    <footer>
+      <span><a href="http://www.lisacintosh.com" style="color:white">Lisacintosh.com</a>, 2015</span>
+    </footer>
+  </body>
+</html>
